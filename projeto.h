@@ -10,10 +10,10 @@ enum Estado {
 };
 
 struct Tarefa {
-  int prioridade;
-  char categoria[100];
-  char descricao[300];
-  enum Estado estado; // Adicionado o campo de estado
+    int prioridade;
+    char categoria[100];
+    char descricao[300];
+    enum Estado estado;
 };
 // cria a struct, que será retomada no arquivo main.c
 
@@ -26,13 +26,16 @@ void excluir_tarefa(struct Tarefa *tarefas, int *cont, int posicao);
 
 // -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 
-// Alterar tarefas
+// Alterar tarefas.
 void alterar_tarefa(struct Tarefa *tarefas, int cont);
 
-// Filtrar tarefas por prioridade
+// Filtrar tarefas por prioridade.
 void filtrar_por_prioridade(struct Tarefa *tarefas, int cont, int prioridade);
 
 // Filtra tarefas por estado.
 void filtrar_por_estado(struct Tarefa *tarefas, int cont, enum Estado estado);
+
+// Filtrar tarefas por categoria.
+void filtrar_por_categoria(struct Tarefa *tarefas, int cont, const char *categoria);
 
 #endif // PROJETO_H
