@@ -32,3 +32,29 @@ void excluir_tarefa(struct Tarefa *tarefas, int *cont, int posicao) {
     }
 }
 // essa funcao exclui uma tarefa desejada do arquivo binario
+
+// -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+
+// Filtrar tarefas por prioridade
+void filtrar_por_prioridade(struct Tarefa *tarefas, int cont, int prioridade) {
+    printf("Tarefas com prioridade %d:\n", prioridade);
+    
+  // Variável usada para controle da condição da existência de tarefas com a prioridade descrita.
+    int encontrou = 0;
+
+  // Loop para percorrer o vetor de tarefas e imprimir as tarefas com a prioridade descrita.
+    for (int i = 0; i < cont; i++) {
+        if (tarefas[i].prioridade == prioridade) {
+            printf("Nome da tarefa: %d\n", i + 1);
+            printf("Prioridade: %d\n", tarefas[i].prioridade);
+            printf("Categoria: %s\n", tarefas[i].categoria);
+            printf("Descricao: %s\n\n", tarefas[i].descricao);
+            encontrou = 1;
+        }
+    }
+
+  // Caso não encontre tarefas com a prioridade descrita, imprime uma mensagem de erro.
+    if (!encontrou) {
+        printf("Nenhuma tarefa encontrada com prioridade %d.\n\n", prioridade);
+    }
+}

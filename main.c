@@ -23,7 +23,8 @@ int main() {
         printf(" 1 - Criar\n");
         printf(" 2 - Excluir\n");
         printf(" 3 - Listar\n");
-        printf(" 4 - Sair\n");
+        printf(" 4 - Filtrar Tarefas por Prioridade\n");
+        printf(" 5 - Sair\n");
         printf("Escreva apenas o numero da opcao que deseja: ");
         // denomina as opcoes a serem utilizadas
         char *p, s_opcao[100];
@@ -56,7 +57,29 @@ int main() {
                 printf("Descricao: %s\n\n", t[x].descricao);
             }
             // le e printa todas as tarefas do arquivo, chamando a opcao 3
-        } else if (opcao == 4) {
+        } 
+          
+// -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+
+        // Filtrar tarefas por prioridade
+        else if (opcao == 4) {
+                printf("Digite a prioridade para filtrar as tarefas: ");
+                int prioridade_filtro;
+                // Recebe a prioridade que o usuário deseja filtrar.
+                fgets(s_posicao, sizeof(s_posicao), stdin);
+                prioridade_filtro = strtol(s_posicao, &p_posicao, 10);
+
+                // Verifica se a prioridade digitada é válida.
+                if (p_posicao == s_posicao || *p_posicao != '\n') {
+                    printf("Digite um valor válido para a prioridade.\n\n");
+                } else {
+                    filtrar_por_prioridade(t, cont, prioridade_filtro);
+                }
+          } 
+
+// -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+
+        else if (opcao == 5) {
             arquivo_binario = fopen("tarefas.txt", "wb");
             if (arquivo_binario) {
                 fwrite(t, sizeof(struct Tarefa), cont, arquivo_binario);
@@ -66,7 +89,7 @@ int main() {
             break;
             // fecha o arquivo e encerra o programa
         } else {
-            printf("Por favor, digite um valor entre 1 - 4.\n");
+            printf("Por favor, digite um valor entre 1 - 5.\n");
         }
     }
 

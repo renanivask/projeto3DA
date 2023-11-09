@@ -17,4 +17,10 @@ void ler(struct Tarefa *armazena);
 void excluir_tarefa(struct Tarefa *tarefas, int *cont, int posicao);
 // declara a funcao que sera usada para apagar tarefas do arquivo binario
 
+// -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+
+// Filtrar tarefas por prioridade
+void filtrar_por_prioridade(struct Tarefa *tarefas, int cont, int prioridade);
+
+
 #endif // PROJETO_H
