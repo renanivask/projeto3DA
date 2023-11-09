@@ -25,7 +25,8 @@ int main() {
         printf(" 3 - Listar\n");
         printf(" 4 - Alterar tarefas\n");
         printf(" 5 - Filtrar Tarefas por Prioridade\n");
-        printf(" 6 - Sair\n");
+        printf(" 6 - Filtrar Tarefas por Estado\n");
+        printf(" 7 - Sair\n");
         printf("Escreva apenas o numero da opcao que deseja: ");
         // denomina as opcoes a serem utilizadas
         char *p, s_opcao[100];
@@ -55,10 +56,26 @@ int main() {
                 printf("Nome da tarefa: %d\n", x + 1);
                 printf("Prioridade: %d\n", t[x].prioridade);
                 printf("Categoria: %s\n", t[x].categoria);
-                printf("Descricao: %s\n\n", t[x].descricao);
+                printf("Descricao: %s\n", t[x].descricao);
+
+                switch (t[x].estado) {
+                    case NAO_INICIADO:
+                        printf("Estado: Não Iniciado\n\n");
+                        break;
+                    case EM_ANDAMENTO:
+                        printf("Estado: Em Andamento\n\n");
+                        break;
+                    case COMPLETO:
+                        printf("Estado: Completo\n\n");
+                        break;
+                    default:
+                        printf("Estado: Desconhecido\n\n");
+                        break;
+                }
             }
             // le e printa todas as tarefas do arquivo, chamando a opcao 3
-        } 
+        }
+
           
 // -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 
@@ -81,11 +98,25 @@ int main() {
                 } else {
                     filtrar_por_prioridade(t, cont, prioridade_filtro);
                 }
-          } 
+          }
 
-// -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+          // Filtra tarefas por estado.
+          else if (opcao == 6) {
+              printf("Digite o estado para filtrar as tarefas: ");
+              int estado_filtro;
+              fgets(s_posicao, sizeof(s_posicao), stdin);
+              estado_filtro = strtol(s_posicao, &p_posicao, 10);
 
-        else if (opcao == 6) {
+              if (p_posicao == s_posicao || *p_posicao != '\n') {
+                  printf("Digite um valor válido para o estado.\n\n");
+              } else {
+                  filtrar_por_estado(t, cont, estado_filtro);
+              }
+          }
+
+// -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+
+        else if (opcao == 7) {
             arquivo_binario = fopen("tarefas.txt", "wb");
             if (arquivo_binario) {
                 fwrite(t, sizeof(struct Tarefa), cont, arquivo_binario);
