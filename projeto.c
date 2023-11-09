@@ -33,7 +33,64 @@ void excluir_tarefa(struct Tarefa *tarefas, int *cont, int posicao) {
 }
 // essa funcao exclui uma tarefa desejada do arquivo binario
 
-// -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+// -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+
+
+// Alterar tarefas
+void alterar_tarefa(struct Tarefa *tarefas, int cont) {
+    int posicao;
+    char escolha[100];
+    char novo_valor[300];
+
+    // Solicitar a posição da tarefa a ser alterada.
+    printf("Digite o numero da tarefa que deseja alterar: ");
+    fgets(escolha, sizeof(escolha), stdin);
+    posicao = strtol(escolha, NULL, 10);
+
+    // Verifica se a posição é válida.
+    if (posicao < 1 || posicao > cont) {
+        printf("Tarefa nao encontrada.\n\n");
+        return;
+    }
+
+    // Solicitar o campo a ser alterado.
+    printf("Escolha o campo que deseja alterar:\n");
+    printf("1 - Prioridade\n");
+    printf("2 - Categoria\n");
+    printf("3 - Descricao\n");
+
+    int opcao;
+    fgets(escolha, sizeof(escolha), stdin);
+    opcao = strtol(escolha, NULL, 10);
+
+    // Verifica se a opção é válida.
+    if (opcao < 1 || opcao > 3) {
+        printf("Opcao invalida.\n\n");
+        return;
+    }
+
+    printf("Digite o novo valor: ");
+    fgets(novo_valor, sizeof(novo_valor), stdin);
+
+    // Remove a quebra de linha do final do novo valor
+    novo_valor[strcspn(novo_valor, "\n")] = '\0';
+
+    // Altera o valor do campo escolhido.
+    switch (opcao) {
+        case 1:
+            tarefas[posicao - 1].prioridade = atoi(novo_valor);
+            break;
+        case 2:
+            strncpy(tarefas[posicao - 1].categoria, novo_valor, sizeof(tarefas[posicao - 1].categoria));
+            break;
+        case 3:
+            strncpy(tarefas[posicao - 1].descricao, novo_valor, sizeof(tarefas[posicao - 1].descricao));
+            break;
+    }
+
+    printf("Tarefa alterada com sucesso.\n\n");
+}
+
 
 // Filtrar tarefas por prioridade
 void filtrar_por_prioridade(struct Tarefa *tarefas, int cont, int prioridade) {
