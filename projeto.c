@@ -1,7 +1,7 @@
 #include "projeto.h"
 #include <stdio.h>
 
-//Renan Ivaskevicius Vieira - 24.123.069-7
+// Renan Ivaskevicius Vieira - 24.123.069-7
 
 void limpa() {
     int c;
@@ -146,5 +146,41 @@ void filtrar_por_estado(struct Tarefa *tarefas, int cont, enum Estado estado) {
     // Caso não encontre tarefas com o estado descrito, imprime uma mensagem de erro.
     if (!encontrou) {
         printf("Nenhuma tarefa encontrada com estado %d.\n\n", estado);
+    }
+}
+
+
+// Filtrar tarefas por categoria.
+// Função auxiliar para comparar as prioridades para ordenação
+int comparar_prioridades(const void *a, const void *b) {
+    return ((struct Tarefa*)b)->prioridade - ((struct Tarefa*)a)->prioridade;
+}
+
+void filtrar_por_categoria(struct Tarefa *tarefas, int cont, const char *categoria) {
+    struct Tarefa tarefas_filtradas[100];
+    int cont_filtradas = 0;
+
+    // Filtrar tarefas pela categoria
+    for (int i = 0; i < cont; i++) {
+        if (strcmp(tarefas[i].categoria, categoria) == 0) {
+            tarefas_filtradas[cont_filtradas++] = tarefas[i];
+        }
+    }
+
+    // Ordenar tarefas filtradas por prioridade (da maior para a menor)
+    qsort(tarefas_filtradas, cont_filtradas, sizeof(struct Tarefa), comparar_prioridades);
+
+    // Imprimir tarefas filtradas
+    printf("Tarefas na categoria '%s', ordenadas por prioridade (da maior para a menor):\n", categoria);
+    for (int i = 0; i < cont_filtradas; i++) {
+        printf("Prioridade: %d\n", tarefas_filtradas[i].prioridade);
+        printf("Categoria: %s\n", tarefas_filtradas[i].categoria);
+        printf("Descricao: %s\n", tarefas_filtradas[i].descricao);
+        printf("Estado: %d\n\n", tarefas_filtradas[i].estado);
+    }
+
+    // Caso não encontre tarefas com a categoria descrita, imprime uma mensagem de erro.
+    if (cont_filtradas == 0) {
+        printf("Nenhuma tarefa encontrada na categoria '%s'.\n\n", categoria);
     }
 }
