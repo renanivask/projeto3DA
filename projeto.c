@@ -184,3 +184,33 @@ void filtrar_por_categoria(struct Tarefa *tarefas, int cont, const char *categor
         printf("Nenhuma tarefa encontrada na categoria '%s'.\n\n", categoria);
     }
 }
+
+
+// Filtrar tarefas por prioridade e categoria.
+void filtrar_por_prioridade_e_categoria(struct Tarefa *tarefas, int cont, const char *categoria, int prioridade) {
+    struct Tarefa tarefas_filtradas[100];
+    int cont_filtradas = 0;
+
+    // Filtrar tarefas pela categoria e prioridade
+    for (int i = 0; i < cont; i++) {
+        if (strcmp(tarefas[i].categoria, categoria) == 0 && tarefas[i].prioridade == prioridade) {
+            tarefas_filtradas[cont_filtradas++] = tarefas[i];
+        }
+    }
+
+    // Ordenar tarefas filtradas por prioridade (da maior para a menor)
+    qsort(tarefas_filtradas, cont_filtradas, sizeof(struct Tarefa), comparar_prioridades);
+
+    // Imprimir tarefas filtradas
+    printf("Tarefas na categoria '%s' e com prioridade %d, ordenadas por prioridade (da maior para a menor):\n", categoria, prioridade);
+    for (int i = 0; i < cont_filtradas; i++) {
+        printf("Prioridade: %d\n", tarefas_filtradas[i].prioridade);
+        printf("Categoria: %s\n", tarefas_filtradas[i].categoria);
+        printf("Descricao: %s\n", tarefas_filtradas[i].descricao);
+        printf("Estado: %d\n\n", tarefas_filtradas[i].estado);
+    }
+
+    if (cont_filtradas == 0) {
+        printf("Nenhuma tarefa encontrada na categoria '%s' com prioridade %d.\n\n", categoria, prioridade);
+    }
+}
