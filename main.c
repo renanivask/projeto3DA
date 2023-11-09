@@ -3,7 +3,7 @@
 #include <stdlib.h>
 #include "projeto.h"
 
-//Renan Ivaskevicius Vieira - 24.123.069-7
+// Renan Ivaskevicius Vieira - 24.123.069-7
 
 int main() {
     // abre o arquivo binário e anuncia a struct que será utilizada para armazenar as tarefas
@@ -26,7 +26,8 @@ int main() {
         printf(" 4 - Alterar tarefas\n");
         printf(" 5 - Filtrar Tarefas por Prioridade\n");
         printf(" 6 - Filtrar Tarefas por Estado\n");
-        printf(" 7 - Sair\n");
+        printf(" 7 - Filtrar Tarefas por Categoria\n");
+        printf(" 8 - Sair\n");
         printf("Escreva apenas o numero da opcao que deseja: ");
         // denomina as opcoes a serem utilizadas
         char *p, s_opcao[100];
@@ -114,9 +115,21 @@ int main() {
               }
           }
 
+          // Filtra tarefas por categoria.  
+          else if (opcao == 7) {
+              // Recebe a categoria que o usuário deseja filtrar.
+              char categoria_filtro[100];
+              printf("Digite a categoria para filtrar as tarefas: ");
+              fgets(categoria_filtro, sizeof(categoria_filtro), stdin);
+            
+              // Remover a quebra de linha do final da categoria
+              categoria_filtro[strcspn(categoria_filtro, "\n")] = '\0';
+              filtrar_por_categoria(t, cont, categoria_filtro);
+          }
+
 // -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 
-        else if (opcao == 7) {
+        else if (opcao == 8) {
             arquivo_binario = fopen("tarefas.txt", "wb");
             if (arquivo_binario) {
                 fwrite(t, sizeof(struct Tarefa), cont, arquivo_binario);
