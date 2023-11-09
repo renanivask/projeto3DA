@@ -214,3 +214,36 @@ void filtrar_por_prioridade_e_categoria(struct Tarefa *tarefas, int cont, const 
         printf("Nenhuma tarefa encontrada na categoria '%s' com prioridade %d.\n\n", categoria, prioridade);
     }
 }
+
+
+// Exportar por prioridade.
+void exportar_por_prioridade(struct Tarefa *tarefas, int cont, int prioridade) {
+    char nome_arquivo[100];
+    FILE *arquivo_exportado;
+
+    // Solicitar o nome do arquivo para exportar
+    printf("Digite o nome do arquivo para exportar as tarefas: ");
+    fgets(nome_arquivo, sizeof(nome_arquivo), stdin);
+    // Remover a quebra de linha do final do nome do arquivo
+    nome_arquivo[strcspn(nome_arquivo, "\n")] = '\0';
+
+    // Abrir o arquivo para escrita
+    arquivo_exportado = fopen(nome_arquivo, "w");
+
+    if (arquivo_exportado == NULL) {
+        printf("Erro ao abrir o arquivo para exportar as tarefas.\n\n");
+        return;
+    }
+
+    // Escrever as tarefas da prioridade escolhida no arquivo
+    for (int i = 0; i < cont; i++) {
+        if (tarefas[i].prioridade == prioridade) {
+            fprintf(arquivo_exportado, "%d, %s, %d, %s\n", tarefas[i].prioridade, tarefas[i].categoria, tarefas[i].estado, tarefas[i].descricao);
+        }
+    }
+
+    // Fechar o arquivo
+    fclose(arquivo_exportado);
+
+    printf("Tarefas exportadas com sucesso para o arquivo '%s'.\n\n", nome_arquivo);
+}
