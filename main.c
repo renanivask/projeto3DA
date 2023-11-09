@@ -23,8 +23,9 @@ int main() {
         printf(" 1 - Criar\n");
         printf(" 2 - Excluir\n");
         printf(" 3 - Listar\n");
-        printf(" 4 - Filtrar Tarefas por Prioridade\n");
-        printf(" 5 - Sair\n");
+        printf(" 4 - Alterar tarefas\n");
+        printf(" 5 - Filtrar Tarefas por Prioridade\n");
+        printf(" 6 - Sair\n");
         printf("Escreva apenas o numero da opcao que deseja: ");
         // denomina as opcoes a serem utilizadas
         char *p, s_opcao[100];
@@ -59,10 +60,15 @@ int main() {
             // le e printa todas as tarefas do arquivo, chamando a opcao 3
         } 
           
-// -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+// -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 
-        // Filtrar tarefas por prioridade
+        // Alterar tarefas.
         else if (opcao == 4) {
+              alterar_tarefa(t, cont);
+        }
+          
+        // Filtrar tarefas por prioridade.
+        else if (opcao == 5) {
                 printf("Digite a prioridade para filtrar as tarefas: ");
                 int prioridade_filtro;
                 // Recebe a prioridade que o usuário deseja filtrar.
@@ -79,7 +85,7 @@ int main() {
 
 // -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 
-        else if (opcao == 5) {
+        else if (opcao == 6) {
             arquivo_binario = fopen("tarefas.txt", "wb");
             if (arquivo_binario) {
                 fwrite(t, sizeof(struct Tarefa), cont, arquivo_binario);
