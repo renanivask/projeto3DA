@@ -3,10 +3,17 @@
 
 // Renan Ivaskevicius Vieira - 24.123.069-7
 
+enum Estado {
+    NAO_INICIADO,
+    EM_ANDAMENTO,
+    COMPLETO
+};
+
 struct Tarefa {
   int prioridade;
   char categoria[100];
   char descricao[300];
+  enum Estado estado; // Adicionado o campo de estado
 };
 // cria a struct, que será retomada no arquivo main.c
 
@@ -25,5 +32,7 @@ void alterar_tarefa(struct Tarefa *tarefas, int cont);
 // Filtrar tarefas por prioridade
 void filtrar_por_prioridade(struct Tarefa *tarefas, int cont, int prioridade);
 
+// Filtra tarefas por estado.
+void filtrar_por_estado(struct Tarefa *tarefas, int cont, enum Estado estado);
 
 #endif // PROJETO_H
