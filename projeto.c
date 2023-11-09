@@ -19,6 +19,9 @@ void ler(struct Tarefa *armazena) {
     printf("Categoria: ");
     scanf("%99[^\n]", armazena->categoria);
     limpa();
+    printf("Estado (0 - Não Iniciado, 1 - Em Andamento, 2 - Completo): ");
+    scanf("%d", (int*)&armazena->estado);
+    limpa();
 }
 // essa funcao le o que foi digitado pelo usuario e escreve no arquivo binario
 
@@ -58,21 +61,23 @@ void alterar_tarefa(struct Tarefa *tarefas, int cont) {
     printf("1 - Prioridade\n");
     printf("2 - Categoria\n");
     printf("3 - Descricao\n");
+    printf("4 - Estado\n");
 
     int opcao;
     fgets(escolha, sizeof(escolha), stdin);
     opcao = strtol(escolha, NULL, 10);
 
     // Verifica se a opção é válida.
-    if (opcao < 1 || opcao > 3) {
+    if (opcao < 1 || opcao > 4) {
         printf("Opcao invalida.\n\n");
         return;
     }
 
+    // Solicitar o novo valor.
     printf("Digite o novo valor: ");
     fgets(novo_valor, sizeof(novo_valor), stdin);
 
-    // Remove a quebra de linha do final do novo valor
+    // Remove a quebra de linha do final do novo valor.
     novo_valor[strcspn(novo_valor, "\n")] = '\0';
 
     // Altera o valor do campo escolhido.
@@ -86,10 +91,14 @@ void alterar_tarefa(struct Tarefa *tarefas, int cont) {
         case 3:
             strncpy(tarefas[posicao - 1].descricao, novo_valor, sizeof(tarefas[posicao - 1].descricao));
             break;
+        case 4:
+            tarefas[posicao - 1].estado = atoi(novo_valor);
+            break;
     }
 
     printf("Tarefa alterada com sucesso.\n\n");
 }
+
 
 
 // Filtrar tarefas por prioridade
@@ -113,5 +122,29 @@ void filtrar_por_prioridade(struct Tarefa *tarefas, int cont, int prioridade) {
   // Caso não encontre tarefas com a prioridade descrita, imprime uma mensagem de erro.
     if (!encontrou) {
         printf("Nenhuma tarefa encontrada com prioridade %d.\n\n", prioridade);
+    }
+}
+
+
+// Filtrar tarefas por estado.
+void filtrar_por_estado(struct Tarefa *tarefas, int cont, enum Estado estado) {
+    printf("Tarefas com estado %d:\n", estado);
+    int encontrou = 0;
+
+    // Loop para percorrer o vetor de tarefas e imprimir as tarefas com o estado descrito.
+    for (int i = 0; i < cont; i++) {
+        if (tarefas[i].estado == estado) {
+            printf("Nome da tarefa: %d\n", i + 1);
+            printf("Prioridade: %d\n", tarefas[i].prioridade);
+            printf("Categoria: %s\n", tarefas[i].categoria);
+            printf("Descricao: %s\n", tarefas[i].descricao);
+            printf("Estado: %d\n\n", tarefas[i].estado);
+            encontrou = 1;
+        }
+    }
+
+    // Caso não encontre tarefas com o estado descrito, imprime uma mensagem de erro.
+    if (!encontrou) {
+        printf("Nenhuma tarefa encontrada com estado %d.\n\n", estado);
     }
 }
