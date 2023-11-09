@@ -38,4 +38,7 @@ void filtrar_por_estado(struct Tarefa *tarefas, int cont, enum Estado estado);
 // Filtrar tarefas por categoria.
 void filtrar_por_categoria(struct Tarefa *tarefas, int cont, const char *categoria);
 
+// Filtrar tarefas por prioridade e categoria.
+void filtrar_por_prioridade_e_categoria(struct Tarefa *tarefas, int cont, const char *categoria, int prioridade);
+
 #endif // PROJETO_H
