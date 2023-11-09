@@ -19,6 +19,9 @@ void excluir_tarefa(struct Tarefa *tarefas, int *cont, int posicao);
 
 // -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 
+// Alterar tarefas
+void alterar_tarefa(struct Tarefa *tarefas, int cont);
+
 // Filtrar tarefas por prioridade
 void filtrar_por_prioridade(struct Tarefa *tarefas, int cont, int prioridade);
 
