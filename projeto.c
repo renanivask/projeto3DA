@@ -295,3 +295,45 @@ void exportar_por_categoria(struct Tarefa *tarefas, int cont, const char *catego
 
     printf("Tarefas exportadas com sucesso para o arquivo '%s'.\n\n", nome_arquivo);
 }
+
+
+// Exportar por prioridade e categoria.
+void exportar_por_prioridade_e_categoria(struct Tarefa *tarefas, int cont, int prioridade, const char *categoria) {
+    char nome_arquivo[100];
+    FILE *arquivo_exportado;
+
+    // Solicita o nome do arquivo para exportar
+    printf("Digite o nome do arquivo para exportar as tarefas: ");
+    fgets(nome_arquivo, sizeof(nome_arquivo), stdin);
+    // Remove a quebra de linha do final do nome do arquivo
+    nome_arquivo[strcspn(nome_arquivo, "\n")] = '\0';
+
+    // Abre o arquivo para escrita
+    arquivo_exportado = fopen(nome_arquivo, "w");
+
+    if (arquivo_exportado == NULL) {
+        printf("Erro ao abrir o arquivo para exportar as tarefas.\n\n");
+        return;
+    }
+
+    // Cria um array temporário para ordenar as tarefas por prioridade
+    struct Tarefa tarefas_ordenadas[100];
+    for (int i = 0; i < cont; i++) {
+        tarefas_ordenadas[i] = tarefas[i];
+    }
+
+    // Ordenar tarefas temporárias por prioridade (da menor para a maior)
+    qsort(tarefas_ordenadas, cont, sizeof(struct Tarefa), comparar_prioridades_exportar);
+
+    // Escrever as tarefas que atendem aos critérios no arquivo
+    for (int i = 0; i < cont; i++) {
+        if (tarefas_ordenadas[i].prioridade == prioridade && strcmp(tarefas_ordenadas[i].categoria, categoria) == 0) {
+            fprintf(arquivo_exportado, "%d, %s, %d, %s\n", tarefas_ordenadas[i].prioridade, tarefas_ordenadas[i].categoria, tarefas_ordenadas[i].estado, tarefas_ordenadas[i].descricao);
+        }
+    }
+
+    // Fechar o arquivo
+    fclose(arquivo_exportado);
+
+    printf("Tarefas exportadas com sucesso para o arquivo '%s'.\n\n", nome_arquivo);
+}
