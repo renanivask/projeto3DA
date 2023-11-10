@@ -29,7 +29,8 @@ int main() {
         printf(" 7 - Filtrar Tarefas por Categoria\n");
         printf(" 8 - Filtrar Tarefas por Prioridade e Categoria\n");
         printf(" 9 - Exportar Tarefas por Prioridade\n");
-        printf(" 10 - Sair\n");
+        printf(" 10 - Exportar Tarefas por Categoria\n");
+        printf(" 11 - Sair\n");
         printf("Escreva apenas o numero da opcao que deseja: ");
         // denomina as opcoes a serem utilizadas
         char *p, s_opcao[100];
@@ -168,10 +169,24 @@ int main() {
               }
           }
 
+          // Exportar por categoria.
+          else if (opcao == 10) {
+              char categoria_exportar[100];
+
+              // Recebe a categoria que o usuário deseja exportar.
+              printf("Digite a categoria das tarefas que deseja exportar: ");
+              fgets(categoria_exportar, sizeof(categoria_exportar), stdin);
+              
+              // Remover a quebra de linha do final da categoria
+              categoria_exportar[strcspn(categoria_exportar, "\n")] = '\0';
+
+              // Exporta as tarefas da categoria escolhida.
+              exportar_por_categoria(t, cont, categoria_exportar);
+          }
 
 // -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 
-        else if (opcao == 10) {
+        else if (opcao == 11) {
             arquivo_binario = fopen("tarefas.txt", "wb");
             if (arquivo_binario) {
                 fwrite(t, sizeof(struct Tarefa), cont, arquivo_binario);

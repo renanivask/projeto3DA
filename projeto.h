@@ -44,4 +44,7 @@ void filtrar_por_prioridade_e_categoria(struct Tarefa *tarefas, int cont, const 
 // Exportar por prioridade.
 void exportar_por_prioridade(struct Tarefa *tarefas, int cont, int prioridade);
 
+// Exportar por categoria.
+void exportar_por_categoria(struct Tarefa *tarefas, int cont, const char *categoria);
+
 #endif // PROJETO_H
