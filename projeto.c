@@ -104,17 +104,18 @@ void alterar_tarefa(struct Tarefa *tarefas, int cont) {
 // Filtrar tarefas por prioridade
 void filtrar_por_prioridade(struct Tarefa *tarefas, int cont, int prioridade) {
     printf("Tarefas com prioridade %d:\n", prioridade);
-    
+
   // Variável usada para controle da condição da existência de tarefas com a prioridade descrita.
     int encontrou = 0;
 
   // Loop para percorrer o vetor de tarefas e imprimir as tarefas com a prioridade descrita.
     for (int i = 0; i < cont; i++) {
         if (tarefas[i].prioridade == prioridade) {
-            printf("Nome da tarefa: %d\n", i + 1);
+            printf("\nNome da tarefa: %d\n", i + 1);
             printf("Prioridade: %d\n", tarefas[i].prioridade);
             printf("Categoria: %s\n", tarefas[i].categoria);
-            printf("Descricao: %s\n\n", tarefas[i].descricao);
+            printf("Descricao: %s\n", tarefas[i].descricao);
+            printf("Estado: %d\n\n", tarefas[i].estado);
             encontrou = 1;
         }
     }
@@ -134,7 +135,7 @@ void filtrar_por_estado(struct Tarefa *tarefas, int cont, enum Estado estado) {
     // Loop para percorrer o vetor de tarefas e imprimir as tarefas com o estado descrito.
     for (int i = 0; i < cont; i++) {
         if (tarefas[i].estado == estado) {
-            printf("Nome da tarefa: %d\n", i + 1);
+            printf("\nNome da tarefa: %d\n", i + 1);
             printf("Prioridade: %d\n", tarefas[i].prioridade);
             printf("Categoria: %s\n", tarefas[i].categoria);
             printf("Descricao: %s\n", tarefas[i].descricao);
@@ -173,6 +174,7 @@ void filtrar_por_categoria(struct Tarefa *tarefas, int cont, const char *categor
     // Imprimir tarefas filtradas
     printf("Tarefas na categoria '%s', ordenadas por prioridade (da maior para a menor):\n", categoria);
     for (int i = 0; i < cont_filtradas; i++) {
+        printf("\nNome da tarefa: %d\n", i + 1);
         printf("Prioridade: %d\n", tarefas_filtradas[i].prioridade);
         printf("Categoria: %s\n", tarefas_filtradas[i].categoria);
         printf("Descricao: %s\n", tarefas_filtradas[i].descricao);
@@ -204,12 +206,13 @@ void filtrar_por_prioridade_e_categoria(struct Tarefa *tarefas, int cont, const 
     // Imprimir tarefas filtradas
     printf("Tarefas na categoria '%s' e com prioridade %d, ordenadas por prioridade (da maior para a menor):\n", categoria, prioridade);
     for (int i = 0; i < cont_filtradas; i++) {
-        printf("Prioridade: %d\n", tarefas_filtradas[i].prioridade);
+        printf("\nPrioridade: %d\n", tarefas_filtradas[i].prioridade);
         printf("Categoria: %s\n", tarefas_filtradas[i].categoria);
         printf("Descricao: %s\n", tarefas_filtradas[i].descricao);
         printf("Estado: %d\n\n", tarefas_filtradas[i].estado);
     }
 
+    // Caso não encontre tarefas com a categoria e prioridade descritas, imprime uma mensagem de erro.
     if (cont_filtradas == 0) {
         printf("Nenhuma tarefa encontrada na categoria '%s' com prioridade %d.\n\n", categoria, prioridade);
     }
@@ -224,6 +227,7 @@ void exportar_por_prioridade(struct Tarefa *tarefas, int cont, int prioridade) {
     // Solicitar o nome do arquivo para exportar
     printf("Digite o nome do arquivo para exportar as tarefas: ");
     fgets(nome_arquivo, sizeof(nome_arquivo), stdin);
+  
     // Remover a quebra de linha do final do nome do arquivo
     nome_arquivo[strcspn(nome_arquivo, "\n")] = '\0';
 
@@ -238,7 +242,7 @@ void exportar_por_prioridade(struct Tarefa *tarefas, int cont, int prioridade) {
     // Escrever as tarefas da prioridade escolhida no arquivo
     for (int i = 0; i < cont; i++) {
         if (tarefas[i].prioridade == prioridade) {
-            fprintf(arquivo_exportado, "%d, %s, %d, %s\n", tarefas[i].prioridade, tarefas[i].categoria, tarefas[i].estado, tarefas[i].descricao);
+            fprintf(arquivo_exportado, "Prioridade: %d, Categoria: %s, Estado: %d, Descrição: %s\n", tarefas[i].prioridade, tarefas[i].categoria, tarefas[i].estado, tarefas[i].descricao);
         }
     }
 
@@ -262,7 +266,7 @@ void exportar_por_categoria(struct Tarefa *tarefas, int cont, const char *catego
     // Solicitar o nome do arquivo para exportar
     printf("Digite o nome do arquivo para exportar as tarefas: ");
     fgets(nome_arquivo, sizeof(nome_arquivo), stdin);
-  
+
     // Remover a quebra de linha do final do nome do arquivo
     nome_arquivo[strcspn(nome_arquivo, "\n")] = '\0';
 
@@ -286,7 +290,7 @@ void exportar_por_categoria(struct Tarefa *tarefas, int cont, const char *catego
     // Escrever as tarefas da categoria escolhida no arquivo
     for (int i = 0; i < cont; i++) {
         if (strcmp(tarefas_ordenadas[i].categoria, categoria) == 0) {
-            fprintf(arquivo_exportado, "%d, %s, %d, %s\n", tarefas_ordenadas[i].prioridade, tarefas_ordenadas[i].categoria, tarefas_ordenadas[i].estado, tarefas_ordenadas[i].descricao);
+            fprintf(arquivo_exportado, "Prioridade: %d, Categoria: %s, Estado: %d, Descrição: %s\n", tarefas_ordenadas[i].prioridade, tarefas_ordenadas[i].categoria, tarefas_ordenadas[i].estado, tarefas_ordenadas[i].descricao);
         }
     }
 
@@ -328,7 +332,7 @@ void exportar_por_prioridade_e_categoria(struct Tarefa *tarefas, int cont, int p
     // Escrever as tarefas que atendem aos critérios no arquivo
     for (int i = 0; i < cont; i++) {
         if (tarefas_ordenadas[i].prioridade == prioridade && strcmp(tarefas_ordenadas[i].categoria, categoria) == 0) {
-            fprintf(arquivo_exportado, "%d, %s, %d, %s\n", tarefas_ordenadas[i].prioridade, tarefas_ordenadas[i].categoria, tarefas_ordenadas[i].estado, tarefas_ordenadas[i].descricao);
+            fprintf(arquivo_exportado, "Prioridade: %d, Categoria: %s, Estado: %d, Descrição: %s\n", tarefas_ordenadas[i].prioridade, tarefas_ordenadas[i].categoria, tarefas_ordenadas[i].estado, tarefas_ordenadas[i].descricao);
         }
     }
 
