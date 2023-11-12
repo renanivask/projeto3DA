@@ -174,8 +174,7 @@ void filtrar_por_categoria(struct Tarefa *tarefas, int cont, const char *categor
     // Imprimir tarefas filtradas
     printf("Tarefas na categoria '%s', ordenadas por prioridade (da maior para a menor):\n", categoria);
     for (int i = 0; i < cont_filtradas; i++) {
-        printf("\nNome da tarefa: %d\n", i + 1);
-        printf("Prioridade: %d\n", tarefas_filtradas[i].prioridade);
+        printf("\nPrioridade: %d\n", tarefas_filtradas[i].prioridade);
         printf("Categoria: %s\n", tarefas_filtradas[i].categoria);
         printf("Descricao: %s\n", tarefas_filtradas[i].descricao);
         printf("Estado: %d\n\n", tarefas_filtradas[i].estado);
