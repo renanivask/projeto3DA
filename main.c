@@ -20,10 +20,10 @@ int main() {
     int posicao = 0;
 
     while (1) {
-        printf(" 1 - Criar\n");
-        printf(" 2 - Excluir\n");
-        printf(" 3 - Listar\n");
-        printf(" 4 - Alterar tarefas\n");
+        printf(" 1 - Criar Tarefa\n");
+        printf(" 2 - Excluir Tarefa\n");
+        printf(" 3 - Listar Tarefas\n");
+        printf(" 4 - Alterar Tarefas\n");
         printf(" 5 - Filtrar Tarefas por Prioridade\n");
         printf(" 6 - Filtrar Tarefas por Estado\n");
         printf(" 7 - Filtrar Tarefas por Categoria\n");
