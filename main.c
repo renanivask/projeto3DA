@@ -81,14 +81,15 @@ int main() {
             // le e printa todas as tarefas do arquivo, chamando a opcao 3
         }
 
-          
+
 // -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 
         // Alterar tarefas.
         else if (opcao == 4) {
+              // Chama a função 4, que pede o número da tarefa e o novo estado.
               alterar_tarefa(t, cont);
         }
-          
+
         // Filtrar tarefas por prioridade.
         else if (opcao == 5) {
                 printf("Digite a prioridade para filtrar as tarefas: ");
@@ -107,11 +108,13 @@ int main() {
 
           // Filtra tarefas por estado.
           else if (opcao == 6) {
+              // Recebe o estado que o usuário deseja filtrar.
               printf("Digite o estado para filtrar as tarefas: ");
               int estado_filtro;
               fgets(s_posicao, sizeof(s_posicao), stdin);
               estado_filtro = strtol(s_posicao, &p_posicao, 10);
 
+              // Verifica se o estado digitado é válido.
               if (p_posicao == s_posicao || *p_posicao != '\n') {
                   printf("Digite um valor válido para o estado.\n\n");
               } else {
@@ -125,7 +128,7 @@ int main() {
               char categoria_filtro[100];
               printf("Digite a categoria para filtrar as tarefas: ");
               fgets(categoria_filtro, sizeof(categoria_filtro), stdin);
-            
+
               // Remover a quebra de linha do final da categoria
               categoria_filtro[strcspn(categoria_filtro, "\n")] = '\0';
               filtrar_por_categoria(t, cont, categoria_filtro);
@@ -136,8 +139,10 @@ int main() {
               char categoria_filtro[100];
               int prioridade_filtro;
 
+              // Recebe a prioridade que o usuário deseja filtrar.
               printf("Digite a categoria para filtrar as tarefas: ");
               fgets(categoria_filtro, sizeof(categoria_filtro), stdin);
+            
               // Remover a quebra de linha do final da categoria
               categoria_filtro[strcspn(categoria_filtro, "\n")] = '\0';
 
@@ -177,7 +182,7 @@ int main() {
               // Recebe a categoria que o usuário deseja exportar.
               printf("Digite a categoria das tarefas que deseja exportar: ");
               fgets(categoria_exportar, sizeof(categoria_exportar), stdin);
-              
+
               // Remover a quebra de linha do final da categoria
               categoria_exportar[strcspn(categoria_exportar, "\n")] = '\0';
 
@@ -201,7 +206,7 @@ int main() {
               } else {
                   printf("Digite a categoria das tarefas que deseja exportar: ");
                   fgets(categoria_exportar, sizeof(categoria_exportar), stdin);
-                
+
                   // Remover a quebra de linha do final da categoria
                   categoria_exportar[strcspn(categoria_exportar, "\n")] = '\0';
 
@@ -222,7 +227,7 @@ int main() {
             break;
             // fecha o arquivo e encerra o programa
         } else {
-            printf("Por favor, digite um valor entre 1 - 5.\n");
+            printf("Por favor, digite um valor entre 1 - 12.\n");
         }
     }
 
